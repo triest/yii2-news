@@ -5,14 +5,14 @@
     /**
      * Handles the creation of table `{{%s_articles}}`.
      */
-    class m200811_165216_creates_articles_table extends Migration
+    class m200811_165216_creates_news_table extends Migration
     {
         /**
          * {@inheritdoc}
          */
         public function safeUp()
         {
-            $this->createTable('{{%s_articles}}', [
+            $this->createTable('{{news}}', [
                     'id' => $this->primaryKey(),
                     'title' => $this->string(),
                     'description' => $this->text(),
@@ -24,6 +24,6 @@
          */
         public function safeDown()
         {
-            $this->dropTable('{{%s_articles}}');
+            $this->dropTable('{{%news}}');
         }
     }

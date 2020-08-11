@@ -12,7 +12,7 @@
          */
         public function safeUp()
         {
-            $this->createTable('{{%s_rubrics}}', [
+            $this->createTable('{{rubrics}}', [
                     'id' => $this->primaryKey(),
                     'title' => $this->string(),
                     'parent_id' => $this->integer()->null()->defaultValue(null)
@@ -20,15 +20,15 @@
 
             $this->createIndex(
                     'parent_id',
-                    's_rubrics',
+                    'rubrics',
                     'parent_id'
             );
 
             $this->addForeignKey(
                     'parent_id',
-                    's_rubrics',
+                    'rubrics',
                     'parent_id',
-                    's_rubrics',
+                    'rubrics',
                     'id',
                     'CASCADE'
             );
@@ -40,6 +40,6 @@
          */
         public function safeDown()
         {
-            $this->dropTable('{{%s_rubrics}}');
+            $this->dropTable('{{rubrics}}');
         }
     }
