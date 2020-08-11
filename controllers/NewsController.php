@@ -2,6 +2,7 @@
 
     namespace app\controllers;
 
+    use app\models\News;
     use app\Service\SRubrik;
     use app\Service\SNews;
     use Yii;
@@ -14,6 +15,9 @@
 
     class NewsController extends Controller
     {
+
+        public $enableCsrfValidation = false;
+
         /**
          * {@inheritdoc}
          */
@@ -67,7 +71,6 @@
         }
 
 
-
         public function actionRubrics()
         {
             $srubrik = new SRubrik();
@@ -75,15 +78,30 @@
             return $this->asJson($items);
         }
 
-        public function actionNews($id){
-
-
-            $snew=new SNews();
-            $news=$snew->getNews($id);
-
+        public function actionNews($id)
+        {
+            $snew = new SNews();
+            $news = $snew->getNews($id);
             return $this->asJson($news);
+        }
 
-            return $this->render('index');
+        public function actionCreate()
+        {
+            Yii::$app->controller->enableCsrfValidation = false;
+            $this->enableCsrfValidation = false;//
+            $model = new  News();
+            $request = Yii::$app->request;
+
+            if ($request->isPost && $request->post("rubrics_id") != null) {
+                $model->title = $request->post("title");
+                $model->description = $request->post("description");
+
+                $model->saveNews($request->post("rubrics_id"));
+                return $this->asJson($model);
+            } else {
+                return $this->asJson(['result' => false]);
+            }
+
         }
 
 

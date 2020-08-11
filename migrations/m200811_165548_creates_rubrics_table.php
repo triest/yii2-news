@@ -14,7 +14,7 @@
         {
             $this->createTable('{{rubrics}}', [
                     'id' => $this->primaryKey(),
-                    'title' => $this->string(),
+                    'title' => $this->string()->notNull(),
                     'parent_id' => $this->integer()->null()->defaultValue(null)
             ]);
 

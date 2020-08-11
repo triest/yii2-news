@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "news".
  *
  * @property int $id
- * @property string|null $title
- * @property string|null $description
+ * @property string $title
+ * @property string $description
  */
 class News extends \yii\db\ActiveRecord
 {
@@ -27,6 +27,7 @@ class News extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['title', 'description'], 'required'],
             [['description'], 'string'],
             [['title'], 'string', 'max' => 255],
         ];
@@ -42,5 +43,20 @@ class News extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
         ];
+    }
+
+    /**
+     * @param $rubrics_id
+     * @return bool
+     */
+    public function saveNews(int $rubrics_id)
+    {
+
+        if(!Rubric::find()->where( [ 'id' => $rubrics_id ] )->exists()){
+
+            return false;
+        }else {
+            return $this->save();
+        }
     }
 }

@@ -14,8 +14,8 @@
         {
             $this->createTable('{{news}}', [
                     'id' => $this->primaryKey(),
-                    'title' => $this->string(),
-                    'description' => $this->text(),
+                    'title' => $this->string()->notNull(),
+                    'description' => $this->text()->notNull(),
             ]);
         }
 

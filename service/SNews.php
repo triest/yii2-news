@@ -17,14 +17,6 @@
     {
         public function getNews(int $rubrikId)
         {
-            /*
-             *
-             * */
-
-            //   return News::find()
-            //         ->leftJoin('news_rubriks','news_rubriks.news_id=news.id')
-            //   ->all();
-
             $connection = Yii::$app->getDb();
             $command = $connection->createCommand('select n.*
 from news n join
