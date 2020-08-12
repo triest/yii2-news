@@ -8,6 +8,7 @@
     use Yii;
     use yii\db\Exception;
     use yii\db\Query;
+    use yii\helpers\ArrayHelper;
 
     /**
      * Created by PhpStorm.
@@ -59,11 +60,21 @@ where :id in (r.id, r.parent_id)', [':id' => $rubrikId]);
                 $rubrick = Rubric::find()->where(['id' => $item])->one();
                 if ($rubrick != null) {
                     $news = $rubrick->getNews()->all();
-                    if ($news != null) {
-                        array_push($collection, $news);
+                    foreach ($news as $news_item) {
+
+                        $results = ArrayHelper::toArray($news_item, [
+                                'models\News' => [
+                                        'id',
+                                        'title',
+                                        'description',
+                                ],
+                        ]);
+                        $collection[] = $results;
+                        //  array_push($collection,$results);
                     }
                 }
             }
+
             return $collection;
         }
     }

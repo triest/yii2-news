@@ -3,6 +3,14 @@
     /* @var $this yii\web\View */
 
     $this->title = 'My Yii Application';
+    use app\widgets\Alert;
+    use yii\helpers\Html;
+    use yii\bootstrap\Nav;
+    use yii\bootstrap\NavBar;
+    use yii\widgets\Breadcrumbs;
+    use app\assets\AppAsset;
+
+    AppAsset::register($this)
 ?>
 <div class="site-index">
 
@@ -22,6 +30,17 @@
                 <?php foreach ($models as $model): ?>
                     <a href="/site/rubrics/<?= $model->id ?>"><?= $model->title ?></a>
                 <?php endforeach; ?>
+
+                <table id="example" class="display" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Место жительства</th>
+                        <th>Навыки</th>
+                        <th>Действия</th>
+                    </tr>
+                    </thead>
+                </table>
             </div>
         </div>
 

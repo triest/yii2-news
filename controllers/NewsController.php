@@ -82,7 +82,8 @@
         {
             $snew = new SNews();
             $news = $snew->getNews($id);
-            return $this->asJson($news);
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $news;
         }
 
         public function actionCreate()

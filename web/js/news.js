@@ -1,14 +1,13 @@
-let dataTable;
-let myData;
 $(document).ready(function () {
     dataTable = $("#example");
     getData();
 });
 
 function getData() {
+
     $.ajax({
         type: "GET",
-        url: '/news/rubrics/'+1,
+        url: '/news/rubrics/1',
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
@@ -42,34 +41,8 @@ function getData() {
                     }
                 },
                 "columns": [
-                    {"data": "user.name"},
-                    {"data": "city.name"},
-                    {
-                        "mData": null,
-                        "bSortable": true,
-                        "mRender": function (data, type, full) {
-                            let string = "";
-                            let arraySkills = data.skills;
-                            let count = 0;
-                            arraySkills.forEach(function (item) {
-                                count++;
-                                if (item.name != "undefined") {
-                                    string += item.name;
-                                    if (count < arraySkills.length) {
-                                        string += ", ";
-                                    }
-                                }
-                            });
-                            return string;
-                        }
-                    },
-                    {
-                        "mData": null,
-                        "bSortable": false,
-                        "mRender": function (data, type, full) {
-                            return '<a class="btn btn-danger" href=#/' + data.user.id + ' onclick=deleteUser(' + data.user.id + ')>' + 'Удалить' + '</a>';
-                        }
-                    }
+                    {"data": "title"},
+                    {"data": "description"},
                 ]
             });
 
