@@ -63,13 +63,19 @@ class Rubric extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRubrics()
+    public function getChildren()
     {
         return $this->hasMany(Rubric::className(), ['parent_id' => 'id']);
     }
 
-    public function getArticles(){
-        return $this->hasMany(Rubric::class,['article_id','id']);
+    public function getNews(){
+       // return $this->hasMany(Rubric::class,['news_id','id']);
+        return $this->hasMany(News::className(), ['id' => 'news_id'])
+                ->viaTable('news_rubriks', ['rubric_id' => 'id']);
+    }
+
+    public static function getItem($id):Rubric{
+        return Rubric::findOne($id);
     }
 
 

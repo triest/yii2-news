@@ -20,7 +20,7 @@
             <div class="col-lg-4">
                 <p> Рубрики: </p>
                 <?php foreach ($models as $model): ?>
-                    <a href="/site/rubruks/<?= $model->id ?>"><?= $model->title ?></a>
+                    <a href="/site/rubrics/<?= $model->id ?>"><?= $model->title ?></a>
                 <?php endforeach; ?>
             </div>
         </div>
