@@ -3,6 +3,7 @@
     /* @var $this yii\web\View */
 
     $this->title = 'My Yii Application';
+
     use app\widgets\Alert;
     use yii\helpers\Html;
     use yii\bootstrap\Nav;
@@ -15,11 +16,7 @@
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
 
     <div class="body-content">
@@ -27,22 +24,36 @@
         <div class="row">
             <div class="col-lg-4">
                 <p> Рубрики: </p>
-                <?php foreach ($models as $model): ?>
-                    <a href="/site/rubrics/<?= $model->id ?>"><?= $model->title ?></a>
-                <?php endforeach; ?>
+                <?php foreach ($models
 
-                <table id="example" class="display" style="width:100%">
-                    <thead>
-                    <tr>
-                        <th>Имя</th>
-                        <th>Место жительства</th>
-                        <th>Навыки</th>
-                        <th>Действия</th>
-                    </tr>
-                    </thead>
-                </table>
+                    as $model): ?>
+                <ul>
+                    <li>
+                        <?= $model->title ?>
+                        <? $childrens = $model->getChildren()->all() ?>
+                        <? $count = 0 ?>
+                        <? foreach ($childrens as $children) { ?>
+                            <? while ($children != null) { ?>
+                                <? $count++ ?>
+                                <ul>
+                                <li>
+                                <?= $children->title ?>
+                                <?
+                                $children = $children->getChildren()->one();
+                            } ?>
+                            <? for ($i = 0;
+                                    $i < $count;
+                                    $i++) { ?>
+                                </li>
+                                </ul>
+                            <? } ?>
+                        <? } ?>
+                    </li>
+                </ul>
             </div>
+            <?php endforeach; ?>
         </div>
-
     </div>
+
+</div>
 </div>

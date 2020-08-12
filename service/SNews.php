@@ -20,28 +20,7 @@
     {
         public function getNews(int $rubrikId)
         {
-
-
-            /*
-            $connection = Yii::$app->getDb();
-
-            $command = $connection->createCommand('select n.*,r.parent_id
-from news n join
-     news_rubriks nr
-     on nr.news_id = n.id left join
-     rubrics r
-     on nr.rubric_id = r.id
-where :id in (r.id, r.parent_id)', [':id' => $rubrikId]);
-
-            try {
-                return $command->queryAll();
-            } catch (Exception $e) {
-                return false;
-            }
-*/
-
             $item = Rubric::find()->where(['id' => $rubrikId])->one();
-            // var_dump($item);
             if ($item == null) {
                 return null;
             }
@@ -60,6 +39,7 @@ where :id in (r.id, r.parent_id)', [':id' => $rubrikId]);
                 $rubrick = Rubric::find()->where(['id' => $item])->one();
                 if ($rubrick != null) {
                     $news = $rubrick->getNews()->all();
+
                     foreach ($news as $news_item) {
 
                         $results = ArrayHelper::toArray($news_item, [
@@ -70,7 +50,6 @@ where :id in (r.id, r.parent_id)', [':id' => $rubrikId]);
                                 ],
                         ]);
                         $collection[] = $results;
-                        //  array_push($collection,$results);
                     }
                 }
             }

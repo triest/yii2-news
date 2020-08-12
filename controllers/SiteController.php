@@ -62,7 +62,7 @@
          */
         public function actionIndex()
         {
-            $models = Rubric::find()->all();
+            $models = Rubric::getRoot();
 
             return $this->render('index', [
                     'models' => $models,
@@ -72,7 +72,7 @@
         public function actionRubrics($id)
         {
 
-            $model =Rubric::find()->where( [ 'id' => $id ] )->one();
+            $model =Rubric::find()->where( [ 'id' => $id ] )->where()->one();
 
             return $this->render('rubrics', [
                     'model' => $model,
