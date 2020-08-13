@@ -58,7 +58,9 @@
          */
         public function saveNews($rubrics)
         {
-            $this->save();
+            if (!$this->save()) {
+                return false;
+            }
             foreach ($rubrics as $item) {
 
                 if (Rubric::find()->where(['id' => intval($item)])->exists()) {

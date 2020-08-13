@@ -3,6 +3,7 @@
     namespace app\controllers;
 
     use app\models\News;
+    use app\models\Rubric;
     use app\Service\SRubrik;
     use app\Service\SNews;
     use Yii;
@@ -79,6 +80,20 @@
             return $this->asJson($items);
         }
 
+        public function actionCreateRubric()
+        {
+            $request = Yii::$app->request;
+            $model = new Rubric();
+
+            if ($request->isPost) {
+                $model->load($request->post());
+                $model->title = $request->post('title');
+                $model->save();
+                return $this->asJson($model);
+            }
+            return true;
+        }
+
         public function actionNews($id)
         {
             $snew = new SNews();
@@ -97,9 +112,9 @@
             if ($request->isPost) {
                 $model->title = $request->post("title");
                 $model->description = $request->post("description");
-                if($model->saveNews($request->post("rubrics_id"))==false){
+                if ($model->saveNews($request->post("rubrics_id")) == false) {
                     return $this->asJson(['result' => 'rubric not found']);
-                }else{
+                } else {
                     return $this->asJson($model);
                 }
             } else {

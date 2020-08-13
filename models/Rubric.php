@@ -8,7 +8,7 @@
      * This is the model class for table "rubrics".
      *
      * @property int $id
-     * @property string|null $title
+     * @property string $title
      * @property int|null $parent_id
      *
      * @property Rubric $parent
@@ -32,6 +32,7 @@
             return [
                     [['parent_id'], 'integer'],
                     [['title'], 'string', 'max' => 255],
+                    [['title'], 'unique'],
                     [
                             ['parent_id'],
                             'exist',
@@ -74,9 +75,10 @@
             return $this->hasMany(Rubric::className(), ['parent_id' => 'id']);
         }
 
-        public static function getRoot(){
-            $query=Rubric::find()
-                    ->where(['parent_id'=>null])->all();
+        public static function getRoot()
+        {
+            $query = Rubric::find()
+                    ->where(['parent_id' => null])->all();
             return $query;
         }
 

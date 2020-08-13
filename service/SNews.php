@@ -2,12 +2,8 @@
 
     namespace app\service;
 
-    use app\models\News;
     use app\models\Rubric;
-    use phpDocumentor\Reflection\Types\Collection;
-    use Yii;
-    use yii\db\Exception;
-    use yii\db\Query;
+    use phpDocumentor\Reflection\Types\Integer;
     use yii\helpers\ArrayHelper;
 
     /**
@@ -18,7 +14,7 @@
      */
     class SNews
     {
-        public function getNews(int $rubrikId)
+        public function getNews(Integer $rubrikId)
         {
             $item = Rubric::find()->where(['id' => $rubrikId])->one();
             if ($item == null) {
