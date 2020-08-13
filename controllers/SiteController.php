@@ -63,7 +63,6 @@
         public function actionIndex()
         {
             $models = Rubric::getRoot();
-        //    var_dump($models);
             return $this->render('index', [
                     'models' => $models,
             ]);
@@ -71,8 +70,7 @@
 
         public function actionRubrics($id)
         {
-
-            $model =Rubric::find()->where( [ 'id' => $id ] )->where()->one();
+            $model =Rubric::find()->where( [ 'id' => $id ] )->one();
 
             return $this->render('rubrics', [
                     'model' => $model,

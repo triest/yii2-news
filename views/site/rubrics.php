@@ -11,15 +11,12 @@
                 ['depends' => [\yii\web\JqueryAsset::className()]]);
     } catch (\yii\base\InvalidConfigException $e) {
     } ?>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
 
-    <script type="text/javascript" charset="utf8"
-            src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <div class="body-content">
 
         <div class="row">
             <div class="col-lg-4">
-                <p> Рубрики: </p>
+                <p> Рубрика: </p>
                 <?= $model->title ?>
                 <? if ($model->getParent()->one() != null) { ?>
                     <p>
@@ -44,6 +41,6 @@
                 </div>
             </div>
         </div>
-
+        <a type="btn btn-primary" href="/">К списку рубрик</a>
     </div>
 </div>

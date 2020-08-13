@@ -32,14 +32,15 @@
                     echo "<ul>";
                     foreach ($models as $item) {
                         echo "<li>";
-                        echo "$item->title ";
-                        if($item!=null && $item->getChildren()->all()!=null){
+                        echo "<a href='site/rubrics/" . $item->id . "'>$item->title </a>";
+                        if ($item != null && $item->getChildren()->all() != null) {
                             listen($item->getChildren()->all());
                         }
                         echo "</li>";
                     }
                     echo "</ul>";
                 }
+
             ?>
         </div>
     </div>

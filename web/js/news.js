@@ -1,5 +1,7 @@
+var rubrick_id;
 $(document).ready(function () {
     dataTable = $("#example");
+    rubrick_id = $('#rubric_id').val();
     getData();
 });
 
@@ -7,7 +9,7 @@ function getData() {
 
     $.ajax({
         type: "GET",
-        url: '/news/rubrics/1',
+        url: '/news/rubrics/' + rubrick_id,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         success: function (data) {
