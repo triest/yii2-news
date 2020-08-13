@@ -63,7 +63,7 @@
         public function actionIndex()
         {
             $models = Rubric::getRoot();
-
+        //    var_dump($models);
             return $this->render('index', [
                     'models' => $models,
             ]);

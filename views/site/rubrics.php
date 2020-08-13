@@ -26,7 +26,7 @@
                         <b>Родительская категория</b>
                         <? $parent = $model->getParent()->one() ?>
 
-                        <a href="/site/rubrics/<?= $parent->id ?>" +> <?= $parent->title ?></a>
+                        <a href="/site/rubrics/<?= $parent->id ?>" > <?= $parent->title ?></a>
                     </p>
                 <? } ?>
 

@@ -22,38 +22,26 @@
     <div class="body-content">
 
         <div class="row">
-            <div class="col-lg-4">
-                <p> Рубрики: </p>
-                <?php foreach ($models
 
-                    as $model): ?>
-                <ul>
-                    <li>
-                        <?= $model->title ?>
-                        <? $childrens = $model->getChildren()->all() ?>
-                        <? $count = 0 ?>
-                        <? foreach ($childrens as $children) { ?>
-                            <? while ($children != null) { ?>
-                                <? $count++ ?>
-                                <ul>
-                                <li>
-                                <?= $children->title ?>
-                                <?
-                                $children = $children->getChildren()->one();
-                            } ?>
-                            <? for ($i = 0;
-                                    $i < $count;
-                                    $i++) { ?>
-                                </li>
-                                </ul>
-                            <? } ?>
-                        <? } ?>
-                    </li>
-                </ul>
-            </div>
-            <?php endforeach; ?>
+            <? listen($models) ?>
+
+            <?
+                function listen($models)
+                {
+
+                    echo "<ul>";
+                    foreach ($models as $item) {
+                        echo "<li>";
+                        echo "$item->title ";
+                        if($item!=null && $item->getChildren()->all()!=null){
+                            listen($item->getChildren()->all());
+                        }
+                        echo "</li>";
+                    }
+                    echo "</ul>";
+                }
+            ?>
         </div>
     </div>
 
-</div>
 </div>

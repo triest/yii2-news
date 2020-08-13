@@ -87,7 +87,7 @@
                     ->viaTable('news_rubriks', ['rubric_id' => 'id']);
         }
 
-        public static function getItem($id): Rubric
+        public static function getItem($id)
         {
             return Rubric::findOne($id);
         }
