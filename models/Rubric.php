@@ -31,6 +31,7 @@
         {
             return [
                     [['parent_id'], 'integer'],
+                    [['title'],'required'],
                     [['title'], 'string', 'max' => 255],
                     [['title'], 'unique'],
                     [
