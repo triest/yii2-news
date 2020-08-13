@@ -1,68 +1,73 @@
 <?php
 
-namespace app\models;
+    namespace app\models;
 
-use Yii;
-
-/**
- * This is the model class for table "news".
- *
- * @property int $id
- * @property string $title
- * @property string $description
- */
-class News extends \yii\db\ActiveRecord
-{
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'news';
-    }
+    use Yii;
 
     /**
-     * {@inheritdoc}
+     * This is the model class for table "news".
+     *
+     * @property int $id
+     * @property string $title
+     * @property string $description
      */
-    public function rules()
+    class News extends \yii\db\ActiveRecord
     {
-        return [
-            [['title', 'description'], 'required'],
-            [['description'], 'string'],
-            [['title'], 'string', 'max' => 255],
-        ];
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public static function tableName()
+        {
+            return 'news';
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'description' => 'Description',
-        ];
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public function rules()
+        {
+            return [
+                    [['title', 'description'], 'required'],
+                    [['description'], 'string'],
+                    [['title'], 'string', 'max' => 255],
+            ];
+        }
 
-    public function getRubric(){
-        // return $this->hasMany(Rubric::class,['news_id','id']);
-        return $this->hasMany(News::className(), ['id' => 'rubric_id'])
-                ->viaTable('news_rubriks', ['news_id' => 'id']);
-    }
+        /**
+         * {@inheritdoc}
+         */
+        public function attributeLabels()
+        {
+            return [
+                    'id' => 'ID',
+                    'title' => 'Title',
+                    'description' => 'Description',
+            ];
+        }
 
-    /**
-     * @param $rubrics_id
-     * @return bool
-     */
-    public function saveNews(int $rubrics_id)
-    {
+        public function getRubric()
+        {
+            // return $this->hasMany(Rubric::class,['news_id','id']);
+            return $this->hasMany(News::className(), ['id' => 'rubric_id'])
+                    ->viaTable('news_rubriks', ['news_id' => 'id']);
+        }
 
-        if(!Rubric::find()->where( [ 'id' => $rubrics_id ] )->exists()){
+        /**
+         * @param $rubrics_id
+         * @return bool
+         */
+        public function saveNews($rubrics)
+        {
+            $this->save();
+            foreach ($rubrics as $item) {
 
-            return false;
-        }else {
-            return $this->save();
+                if (Rubric::find()->where(['id' => intval($item)])->exists()) {
+                    $rubric = Rubric::find()->where(['id' => intval($item)])->one();
+                    $this->link('rubric', $rubric);
+                }
+            }
+
+            return true;
+
         }
     }
-}

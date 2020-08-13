@@ -7,6 +7,7 @@
     use app\Service\SNews;
     use Yii;
     use yii\filters\AccessControl;
+    use yii\helpers\ArrayHelper;
     use yii\web\Controller;
     use yii\web\Response;
     use yii\filters\VerbFilter;
@@ -93,12 +94,14 @@
             $model = new  News();
             $request = Yii::$app->request;
 
-            if ($request->isPost && $request->post("rubrics_id") != null) {
+            if ($request->isPost) {
                 $model->title = $request->post("title");
                 $model->description = $request->post("description");
-
-                $model->saveNews($request->post("rubrics_id"));
-                return $this->asJson($model);
+                if($model->saveNews($request->post("rubrics_id"))==false){
+                    return $this->asJson(['result' => 'rubric not found']);
+                }else{
+                    return $this->asJson($model);
+                }
             } else {
                 return $this->asJson(['result' => false]);
             }
